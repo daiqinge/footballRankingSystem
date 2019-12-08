@@ -126,11 +126,69 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>local/*</exclude>
+					<exclude>test/*</exclude>
+					<exclude>production/*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/template</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources/${profiles.active}</directory>
+			</resource>
+		</resources>
 	</build>
+	<profiles>
+		<profile>
+			<id>local</id>
+			<build>
+				<finalName>${project.artifactId}-local-${project.version}</finalName>
+			</build>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<profiles.active>local</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<build>
+				<finalName>${project.artifactId}-test-${project.version}</finalName>
+			</build>
+			<properties>
+				<profiles.active>test</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>production</id>
+			<build>
+				<finalName>${project.artifactId}-production-${project.version}</finalName>
+			</build>
+			<properties>
+				<profiles.active>production</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
 
 
 </project>
