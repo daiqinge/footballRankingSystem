@@ -29,8 +29,8 @@ public class matchController {
 	
 	@PostMapping("/getTwoPlayerRes")
 	@ResponseBody
-	public List<Player> getTwoPlayerRes(String winPlayer, String losePlayer) {
-		return matchService.getTwoPlayerRes(winPlayer, losePlayer);
+		public List<Player> getTwoPlayerRes(String player1, String player2) {
+		return matchService.getTwoPlayerRes(player1, player2);
 	}
 	
 	@PostMapping("/addMatch")
